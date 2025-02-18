@@ -4,10 +4,10 @@ Before starting this tutorial be sure to install the [emu8086](https://emu8086-m
 
 ---
 
-## Table of contents
+## 📖 Table of contents
 
 - [⚙️ Assembly Basics For The Operating System (CS306) Course](#️-assembly-basics-for-the-operating-system-cs306-course)
-  - [Table of contents](#table-of-contents)
+  - [📖 Table of contents](#-table-of-contents)
   - [🏗️ Understanding Registers](#️-understanding-registers)
     - [Main Registers in 8086](#main-registers-in-8086)
     - [1️⃣ General-Purpose Registers](#1️⃣-general-purpose-registers)
