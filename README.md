@@ -4,7 +4,9 @@ This repository contains notes, exercises, and projects for the **Operating Syst
 
 ## 📖 Table of Contents
 
-- [Introduction to Assembly](#-introduction-to-assembly-programming)
+- [CS306: Operating Systems Lab Content](#cs306-operating-systems-lab-content)
+  - [📖 Table of Contents](#-table-of-contents)
+  - [📌 Introduction to Assembly Programming](#-introduction-to-assembly-programming)
 
 ## 📌 Introduction to Assembly Programming
 
@@ -13,7 +15,7 @@ For the lab notes on Assembly programming, check out my guide covering the basic
 ➡️ **[Click here to dive into Assembly Basics](./Labs/assembly-basics.md)**
 
 In this guide, you'll learn:  
-✅ Where you can install the **emu8086** emulator  
+✅ Where you can install the **emu8086** emulator
 ✅ How registers work in assembly
 ✅ The basic Arithmetic instructions (ADD, SUB, MUL, and DIV)
 ✅ Defining variables in assembly
