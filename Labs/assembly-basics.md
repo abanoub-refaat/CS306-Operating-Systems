@@ -4,6 +4,24 @@ Before starting this tutorial be sure to install the [emu8086](https://emu8086-m
 
 ---
 
+## Table of contents
+
+- [⚙️ Assembly Basics For The Operating System (CS306) Course](#️-assembly-basics-for-the-operating-system-cs306-course)
+  - [Table of contents](#table-of-contents)
+  - [🏗️ Understanding Registers](#️-understanding-registers)
+    - [Main Registers in 8086](#main-registers-in-8086)
+    - [1️⃣ General-Purpose Registers](#1️⃣-general-purpose-registers)
+    - [2️⃣ Segment Registers](#2️⃣-segment-registers)
+    - [3️⃣ Special-Purpose Registers](#3️⃣-special-purpose-registers)
+  - [📌 The MOV Instruction](#-the-mov-instruction)
+  - [📌 Arithmetic Operations (ADD, SUB, MUL, and DIV)](#-arithmetic-operations-add-sub-mul-and-div)
+    - [1️⃣ The ADD Instruction](#1️⃣-the-add-instruction)
+    - [2️⃣ The SUB Instruction](#2️⃣-the-sub-instruction)
+    - [3️⃣ The MUL Instruction](#3️⃣-the-mul-instruction)
+    - [4️⃣ The DIV Instruction](#4️⃣-the-div-instruction)
+  - [📌 Defining Variables in Assembly](#-defining-variables-in-assembly)
+    - [1️⃣ DB and DW Instructions](#1️⃣-db-and-dw-instructions)
+
 ## 🏗️ Understanding Registers
 
 In assembly language, **registers** are small storage locations inside the CPU that help in performing operations quickly. Think of them as super-fast variables that the processor can access instantly.
