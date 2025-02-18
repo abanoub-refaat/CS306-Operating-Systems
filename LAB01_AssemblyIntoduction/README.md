@@ -1,6 +1,6 @@
 # ⚙️ Assembly Basics For The Operating System (CS306) Course
 
-Before starting this tutorial be sure to install the [emu8086](https://emu8086-microprocessor-emulator.en.softonic.com/download) to help you practice alongside with the provided code.
+Before starting this tutorial be sure to install the [emu8086](https://emu8086-microprocessor-emulator.en.softonic.com/download) to help you practice alongside with the provided code segments.
 
 ---
 
@@ -44,9 +44,9 @@ Some registers have unique jobs:
 
 ---
 
-## 📌 The MOV function
+## 📌 The MOV Instruction
 
-Now that we learned about the registers in the previous section we can use the MOV function to "copy" some bytes to a specific register, in the provided code we are transferring the value of 1234 in Hexadecimal (thats what the H means) to the register AX.
+Now that we learned about the registers in the previous section we can use the MOV function to "copy" some bytes to a specific register. in the provided code we are copying the value of 1234 in Hexadecimal (thats what the H means) to the register AX.
 you can learn more about Hexadecimal using this link: [**What is Hexadecimal Numbering?**](https://www.techtarget.com/whatis/definition/hexadecimal)
 
 ```assembly
@@ -58,3 +58,104 @@ MOV AX, 1234H ; assigning the value of 1234H to the register AX
 ```assembly
 MOV BH, AH ; assigning the ah value to bh register
 ```
+
+We can also copy some value in the location of some register by using the square bracket as in the following example
+
+```assembly
+MOV CX, 1234H ; copying the value 1234H into CX
+MOV [BX], CX  ; copying the value of CX into the position of the register BX.
+```
+
+---
+
+## 📌 Arithmetic Operations (ADD, SUB, MUL, and DIV)
+
+Assebly provides some basic functions for arithmetic operations lets explore each one and see how it works.
+
+### 1️⃣ The ADD Instruction
+
+```assembly
+ORG 100H
+    MOV AX, 1520H
+    MOV SI, 0300H
+    MOV [SI], 3040H
+    ADD AX, [SI] ; AX = 3040H + 1520H
+RET
+```
+
+📝 **NOTE**: `ORG` is a directive that tells the assembler to set the starting address of the code to 100 hexadecimal (256 in decimal). This is typically used when creating `.COM` files in MS-DOS.
+
+In the previous example we are adding the value in the location of the register `SI` with the value of `AX` and the result is added to the register `AX`.
+
+### 2️⃣ The SUB Instruction
+
+```assembly
+ORG 100H
+    MOV AX, 1234H
+    MOV DX, 5678H
+    SUB DX, AX ; DX = 5678H - 1234 H
+RET
+```
+
+In this example we are initializing both AX and DX with initia values of 1234H and 5678H respectivly, and then subtracting the value of DX from the value of AX and storing the answer in DX. (Notice that the `ADD` and `SUB` are semillar so we don't have to talk much about them).
+
+### 3️⃣ The MUL Instruction
+
+```assembly
+ORG 100H
+    MOV BX, 3
+    MOV AX, 3
+    MUL Bx ; AX = AX * BX
+RET
+```
+
+The `MUL` instruction works in a different way than the `ADD` instuction since it only accept unary attribute and not binary as in the `ADD` or `SUB`.
+So, the following will not work:
+
+```assembly
+MUL AX, 1234H ; will not work
+```
+
+We also can notice that the multiplication happend in `AX` and the value is also stored in the register `AX` so we can make the conclution that `MUL BX` is the same as `AX = AX * BX`.
+
+### 4️⃣ The DIV Instruction
+
+```assembly
+ORG 100H
+    MOV AX, 4
+    MOV BL, 2
+    DIV BL
+RET
+```
+
+The `DIV` instruction work in a simmilar way as the `MUL` instruction, it divides the value of the parameter by the value in the register `AX`, but there is a catch.
+
+- When the operand is a **byte** (8-bit operand):
+  `DIV BL` is the same as `AL = AX / BL` and if there was any reminders its value will be stored in `AH`.
+- When the operand is a **Word** (16-bit operand):
+  `DIV BL` will be the same as `AL:DL = AL / BL` and the reminder will be in the `DX` register.
+
+---
+
+## 📌 Defining Variables in Assembly
+
+In assembly we have two ways for defining varibles each one has its own instruction that are straight forward and easy to use.
+
+### 1️⃣ DB and DW Instructions
+
+```assembly
+ORG 100H
+    MOV AL, var1
+    MOV BL, var2
+    MUL BL
+    MOV answer, AL
+RET
+var1 DB 00000001B
+var2 DB 00000010B
+answer DB ? ; will be assigned later
+```
+
+`DB` is a short for **Define Byte** and `DW` is short for **Define Word** and it goes without saying what is the difference between the two of them.
+In the previous code block we are declaring two variables `var1` and `var2` and assigning them the values 1 and 2 respectivly but in binary, and we are defining a third varaiable called `answer` that has no initial value and we are telling the assembler that by using the question mark instade of the value `answer DB ?`.
+
+📝 **Note**: we are defining the variables after the `RET` instruction and this is requierd since defining them else were will not wrok.
