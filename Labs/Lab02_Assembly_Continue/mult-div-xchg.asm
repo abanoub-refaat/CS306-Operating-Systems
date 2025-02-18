@@ -1,25 +1,3 @@
-; Q1:
-org 100H
-    MOV AX, 1520H
-    MOV SI, 0300H
-    MOV [SI], 3040H
-    ADD AX, [SI]
-ret    
- 
-; Q2
-org 100H
-MOV AL, 12H
-MOV BL, 33H
-
-MOV CL, AL
-MOV AL, BL
-MOV Bl, CL
-MOV CL, 00h
-
-xchg AL, BL
-ret        
-
-
 org 100h
 
 MOV AL, 000000B

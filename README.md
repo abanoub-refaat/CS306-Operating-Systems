@@ -1,16 +1,21 @@
-# CS306-Operating-Systems
+# CS306: Operating Systems Lab Content
 
-Notes, assignments, and projects for the Operating Systems course (CS306). Topics include process management, memory allocation, concurrency, and system calls.
+This repository contains notes, exercises, and projects for the **Operating Systems Lab (CS306)**. Topics include process management, memory allocation, concurrency, and system calls.
 
-## 📌 Assembly Basics
+## 📖 Table of Contents
 
-If you're new to assembly language and want to get started with **8086 Assembly**, check out the **Lab 1 - Intro to Assembly** guide:
+- [Introduction to Assembly](#-introduction-to-assembly-programming)
 
-➡️ **[Read the full post here](./LAB01_AssemblyIntoduction/README.md)**
+## 📌 Introduction to Assembly Programming
+
+For the lab notes on Assembly programming, check out my guide covering the basics along with code snippets:
+
+➡️ **[Click here to dive into Assembly Basics](./Labs/assembly-basics.md)**
 
 In this guide, you'll learn:  
-✅ How to install the **emu8086** emulator  
-✅ The basics of the `MOV` instruction  
+✅ Where you can install the **emu8086** emulator  
 ✅ How registers work in assembly
+✅ The basic Arithmetic instructions (ADD, SUB, MUL, and DIV)
+✅ Defining variables in assembly
 
 More topics will be added as the course progresses! 🚀
