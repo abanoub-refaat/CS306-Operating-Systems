@@ -21,6 +21,7 @@ Before starting this tutorial be sure to install the [emu8086](https://emu8086-m
     - [4️⃣ The DIV Instruction](#4️⃣-the-div-instruction)
   - [📌 Defining Variables in Assembly](#-defining-variables-in-assembly)
     - [1️⃣ DB and DW Instructions](#1️⃣-db-and-dw-instructions)
+  - [📌 Logical Operators (AND, OR, and XOR)](#-logical-operators-and-or-and-xor)
 
 ## 🏗️ Understanding Registers
 
@@ -177,3 +178,33 @@ answer DB ? ; will be assigned later
 In the previous code block we are declaring two variables `var1` and `var2` and assigning them the values 1 and 2 respectivly but in binary, and we are defining a third varaiable called `answer` that has no initial value and we are telling the assembler that by using the question mark instade of the value `answer DB ?`.
 
 📝 **Note**: we are defining the variables after the `RET` instruction and this is requierd since defining them else were will not wrok.
+
+---
+
+## 📌 Logical Operators (AND, OR, and XOR)
+
+We can use the logical operators `AND`, `OR` , and `XOR` on binary numbers to manipulate its values
+
+```assembly
+MOV al, 11001100b  ; Load AL with 11001100
+AND al, 10101010b  ; Perform AND with 10101010
+; Result in AL: 10001000
+```
+
+AND (`AND al, value`): Performs a bitwise AND, keeping only the bits that are `1` in both operands.
+
+```assembly
+MOV al, 11101100b  ; Load AL with 11001100
+OR  al, 10101010b   ; Perform OR with 10101010
+; Result in AL: 11101110
+```
+
+OR (`OR al, value`): Performs a bitwise OR, setting bits to `1` if either operand has a `1`.
+
+```assembly
+MOV al, 11001100b  ; Load AL with 11001100
+XOR al, 10101010b  ; Perform XOR with 10101010
+; Result in AL: 01100110
+```
+
+XOR (`XOR al, value`): Performs a bitwise XOR, setting bits to 1 **only if the bits differ**.
