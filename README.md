@@ -14,7 +14,7 @@ For the lab notes on Assembly programming, check out my guide covering the basic
 
 ➡️ **[Click here to dive into Assembly Basics](./Labs/assembly-basics.md)**
 
-In this guide, you'll learn: 
+In this guide, you'll learn:
 
 - ✅ Where you can install the **emu8086** emulator
 - ✅ How registers work in assembly
