@@ -19,9 +19,15 @@ Before starting this tutorial be sure to install the [emu8086](https://emu8086-m
     - [2️⃣ The SUB Instruction](#2️⃣-the-sub-instruction)
     - [3️⃣ The MUL Instruction](#3️⃣-the-mul-instruction)
     - [4️⃣ The DIV Instruction](#4️⃣-the-div-instruction)
+    - [5️⃣ INC and DEC Instructions](#5️⃣-inc-and-dec-instructions)
+    - [6️⃣ The NEG Instruction](#6️⃣-the-neg-instruction)
   - [📌 Defining Variables in Assembly](#-defining-variables-in-assembly)
     - [1️⃣ DB and DW Instructions](#1️⃣-db-and-dw-instructions)
-  - [📌 Logical Operators (AND, OR, and XOR)](#-logical-operators-and-or-and-xor)
+  - [📌 Logical Operators (AND, OR, XOR, XCHG and NOT)](#-logical-operators-and-or-xor-xchg-and-not)
+  - [📌 Declaring array in Assebly](#-declaring-array-in-assebly)
+    - [Direct and Indirect Memory indexing Locations](#direct-and-indirect-memory-indexing-locations)
+  - [🎯 Important Application](#-important-application)
+    - [📍 Calculating One's and Two's Complement for a Bianry number](#-calculating-ones-and-twos-complement-for-a-bianry-number)
 
 ## 🏗️ Understanding Registers
 
@@ -154,6 +160,32 @@ The `DIV` instruction work in a simmilar way as the `MUL` instruction, it divide
 - When the operand is a **Word** (16-bit operand):
   `DIV BL` will be the same as `AL:DL = AL / BL` and the reminder will be in the `DX` register.
 
+### 5️⃣ INC and DEC Instructions
+
+`INC` and `DEC` are as the names suggest increament/decrement a register value by 1. and they are very usefull when computing the One's Complement for a binary value which we can use to get the Two's compement for a binary value.
+(for the full implementation see section [🎯 Important Application](#-important-application)).
+
+```assembly
+ORG 100H
+  MOV AL, 4
+  INC AL ; AL = 5
+
+  MOV BL, 2
+  DEC BL ; BL = 1
+RET
+```
+
+### 6️⃣ The NEG Instruction
+
+The `NEG` instuction is used to get the negative of a value
+
+```assembly
+ORG 100H
+  MOV AL, 23
+  NEG AL ; AL = -23
+RET
+```
+
 ---
 
 ## 📌 Defining Variables in Assembly
@@ -181,7 +213,7 @@ In the previous code block we are declaring two variables `var1` and `var2` and 
 
 ---
 
-## 📌 Logical Operators (AND, OR, and XOR)
+## 📌 Logical Operators (AND, OR, XOR, XCHG and NOT)
 
 We can use the logical operators `AND`, `OR` , and `XOR` on binary numbers to manipulate its values
 
@@ -208,3 +240,73 @@ XOR al, 10101010b  ; Perform XOR with 10101010
 ```
 
 XOR (`XOR al, value`): Performs a bitwise XOR, setting bits to 1 **only if the bits differ**.
+
+```assembly
+MOV AL, 12H
+MOV AH, 34H
+XCHG AL, AH ; AX = 3412H
+```
+
+XCHG (`XCHG AL, AH`) will, as the name suggests, exchange the values of `AL` and `AH` so, at fist `AX = 1234H` and after the exchange `AX = 3412H`.
+
+```assembly
+ORG 100H
+  MOV AL, 11001100B
+  NOT AL ; 00110011B
+RET
+```
+
+NOT (`NOT AL`) acts the same as the logical NOT gate which will revert the binary value of a number from `1` to `0` and vice versa.
+
+---
+
+## 📌 Declaring array in Assebly
+
+As in declaring variables we declare the array after the `RET` instruction and the only difference between them is that we list the array values seperated by a `,` as seen in the following code snippit:
+
+```assebmly
+OEG 100H
+  MOV AL, var1[0]
+  MOV BX, var2[2] ; moves two memory locations
+RET
+; defining an array
+var1 DB 12H, 23H, 34H, 56H
+var2 DW 12H, 23H, 34H, 56H
+```
+
+At first var2 has the first value (so we should move it with the index to get the rest).
+With the introduction of array we will have an important concept to address which is "Direct and Indirect Memory indexing Locations" and we will discuss it in the following section.
+
+### Direct and Indirect Memory indexing Locations
+
+Indirect memory indexing in assembly refers to accessing memory locations using a register as an index. The effective address is determined by adding an offset to the value stored in a register.
+
+```assembly
+ORG 100H
+  MOV SI, offset arr ; Load the address of arr into SI
+  INC SI             ; Increment SI by 1 (SI now points to arr[1])
+  MOV AL, [SI + 2]   ; Load the value at address (SI + 2) into AL
+RET
+arr DB 1, 2, 3, 4  ; Define an array of bytes
+```
+
+At first we are loading the address of the `arr` into the register `SI` and then we increament the value of `SI` so now `SI` points to `arr[1]` and then we are loaded the location of `[SI + 2]` which is inessence `arr[2]` into the register `AL`.
+
+---
+
+## 🎯 Important Application
+
+### 📍 Calculating One's and Two's Complement for a Bianry number
+
+```assembly
+ORG 100H
+  MOV AL, 10101111B
+  MOV BL, AL
+  ; one's complement
+  NOT AL
+
+  ; two's complement = one's complement + 1
+  INC AL
+  NEG BL
+RET
+```
