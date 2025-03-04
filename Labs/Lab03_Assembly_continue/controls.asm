@@ -1,5 +1,6 @@
 ; lea (load effective address)
 ; loops
+; jmp: infinite loop
 org 100h
 lea si, marks
 
