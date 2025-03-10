@@ -1,6 +1,6 @@
 # ⚙️ Assembly Basics For The Operating System (CS306) Course
 
-Before starting this tutorial be sure to install the [emu8086](https://emu8086-microprocessor-emulator.en.softonic.com/download) to help you practice alongside with the provided code segments.
+Before starting this tutorial, install the [emu8086](https://emu8086-microprocessor-emulator.en.softonic.com/download) to help you practice alongside the provided code segments.
 
 ---
 
@@ -24,14 +24,14 @@ Before starting this tutorial be sure to install the [emu8086](https://emu8086-m
   - [📌 Defining Variables in Assembly](#-defining-variables-in-assembly)
     - [1️⃣ DB and DW Instructions](#1️⃣-db-and-dw-instructions)
   - [📌 Logical Operators (AND, OR, XOR, XCHG and NOT)](#-logical-operators-and-or-xor-xchg-and-not)
-  - [📌 Declaring array in Assebly](#-declaring-array-in-assebly)
+  - [📌 Declaring array in Assembly](#-declaring-array-in-assembly)
     - [Direct and Indirect Memory indexing Locations](#direct-and-indirect-memory-indexing-locations)
   - [🎯 Important Application](#-important-application)
-    - [📍 Calculating One's and Two's Complement for a Bianry number](#-calculating-ones-and-twos-complement-for-a-bianry-number)
+    - [📍 Calculating One's and Two's Complement for a Binary Number](#-calculating-ones-and-twos-complement-for-a-binary-number)
 
 ## 🏗️ Understanding Registers
 
-In assembly language, **registers** are small storage locations inside the CPU that help in performing operations quickly. Think of them as super-fast variables that the processor can access instantly.
+In assembly language, registers are small storage locations inside the CPU that help perform operations quickly. Think of them as super-fast variables that the processor can access instantly.
 
 ### Main Registers in 8086
 
@@ -71,7 +71,7 @@ Some registers have unique jobs:
 
 ## 📌 The MOV Instruction
 
-Now that we learned about the registers in the previous section we can use the MOV function to "copy" some bytes to a specific register. in the provided code we are copying the value of 1234 in Hexadecimal (thats what the H means) to the register AX.
+Now that we learned about the registers in the previous section we can use the MOV function to "copy" some bytes to a specific register. in the provided code we are copying the value of 1234 in Hexadecimal (that's what the H means) to the register AX.
 you can learn more about Hexadecimal using this link: [**What is Hexadecimal Numbering?**](https://www.techtarget.com/whatis/definition/hexadecimal)
 
 ```assembly
@@ -95,7 +95,7 @@ MOV [BX], CX  ; copying the value of CX into the position of the register BX.
 
 ## 📌 Arithmetic Operations (ADD, SUB, MUL, and DIV)
 
-Assebly provides some basic functions for arithmetic operations lets explore each one and see how it works.
+Assembly provides some basic functions for arithmetic operations lets explore each one and see how it works.
 
 ### 1️⃣ The ADD Instruction
 
@@ -110,7 +110,7 @@ RET
 
 📝 **NOTE**: `ORG` is a directive that tells the assembler to set the starting address of the code to 100 hexadecimal (256 in decimal). This is typically used when creating `.COM` files in MS-DOS.
 
-In the previous example we are adding the value in the location of the register `SI` with the value of `AX` and the result is added to the register `AX`.
+In the previous example, we are adding the value in the location of the register `SI` with the value of `AX` and the result is added to the register `AX`.
 
 ### 2️⃣ The SUB Instruction
 
@@ -122,7 +122,7 @@ ORG 100H
 RET
 ```
 
-In this example we are initializing both AX and DX with initia values of 1234H and 5678H respectivly, and then subtracting the value of DX from the value of AX and storing the answer in DX. (Notice that the `ADD` and `SUB` are semillar so we don't have to talk much about them).
+In this example, we are initializing both AX and DX with initial values of 1234H and 5678H respectively, and then subtracting the value of DX from the value of AX and storing the answer in DX. (Notice that the `ADD` and `SUB` are similar so we don't have to talk much about them).
 
 ### 3️⃣ The MUL Instruction
 
@@ -134,7 +134,7 @@ ORG 100H
 RET
 ```
 
-The `MUL` instruction works in a different way than the `ADD` instuction since it only accept unary attribute and not binary as in the `ADD` or `SUB`.
+The `MUL` instruction works in a different way than the `ADD` instruction since it only accepts unary attributes and not binary as in the `ADD` or `SUB`.
 So, the following will not work:
 
 ```assembly
@@ -156,9 +156,9 @@ RET
 The `DIV` instruction work in a simmilar way as the `MUL` instruction, it divides the value of the parameter by the value in the register `AX`, but there is a catch.
 
 - When the operand is a **byte** (8-bit operand):
-  `DIV BL` is the same as `AL = AX / BL` and if there was any reminders its value will be stored in `AH`.
+  `DIV BL` is the same as `AL = AX / BL` and if there were any reminders its value will be stored in `AH`.
 - When the operand is a **Word** (16-bit operand):
-  `DIV BL` will be the same as `AL:DL = AL / BL` and the reminder will be in the `DX` register.
+  `DIV BL` will be the same as `AL: DL = AL / BL` and the remainder will be in the `DX` register.
 
 ### 5️⃣ INC and DEC Instructions
 
@@ -177,7 +177,7 @@ RET
 
 ### 6️⃣ The NEG Instruction
 
-The `NEG` instuction is used to get the negative of a value
+The `NEG` instruction is used to get the negative of a value
 
 ```assembly
 ORG 100H
@@ -190,7 +190,7 @@ RET
 
 ## 📌 Defining Variables in Assembly
 
-In assembly we have two ways for defining varibles each one has its own instruction that are straight forward and easy to use.
+In assembly we have two ways for defining variables each one has its own instructions that are straight forward and easy to use.
 
 ### 1️⃣ DB and DW Instructions
 
@@ -207,7 +207,7 @@ answer DB ? ; will be assigned later
 ```
 
 `DB` is a short for **Define Byte** and `DW` is short for **Define Word** and it goes without saying what is the difference between the two of them.
-In the previous code block we are declaring two variables `var1` and `var2` and assigning them the values 1 and 2 respectivly but in binary, and we are defining a third varaiable called `answer` that has no initial value and we are telling the assembler that by using the question mark instade of the value `answer DB ?`.
+In the previous code block, we declared two variables `var1` and `var2`, and assigned them the values 1 and 2 respectively but in binary, we defined a third variable called `answer` that has no initial value and we tells the assembler that by using the question mark instead of the value `answer DB ?`.
 
 📝 **Note**: we are defining the variables after the `RET` instruction and this is requierd since defining them else were will not wrok.
 
@@ -260,9 +260,9 @@ NOT (`NOT AL`) acts the same as the logical NOT gate which will revert the binar
 
 ---
 
-## 📌 Declaring array in Assebly
+## 📌 Declaring array in Assembly
 
-As in declaring variables we declare the array after the `RET` instruction and the only difference between them is that we list the array values seperated by a `,` as seen in the following code snippit:
+As in declaring variables we declare the array after the `RET` instruction and the only difference between them is that we list the array values separated by a `,` as seen in the following code snippet:
 
 ```assebmly
 OEG 100H
@@ -274,8 +274,8 @@ var1 DB 12H, 23H, 34H, 56H
 var2 DW 12H, 23H, 34H, 56H
 ```
 
-At first var2 has the first value (so we should move it with the index to get the rest).
-With the introduction of array we will have an important concept to address which is "Direct and Indirect Memory indexing Locations" and we will discuss it in the following section.
+At first, var2 has the first value (so we should move it with the index to get the rest).
+With the introduction of the array, we will have an important concept to address which is "Direct and Indirect Memory indexing Locations" and we will discuss it in the following section.
 
 ### Direct and Indirect Memory indexing Locations
 
@@ -290,13 +290,13 @@ RET
 arr DB 1, 2, 3, 4  ; Define an array of bytes
 ```
 
-At first we are loading the address of the `arr` into the register `SI` and then we increament the value of `SI` so now `SI` points to `arr[1]` and then we are loaded the location of `[SI + 2]` which is inessence `arr[2]` into the register `AL`.
+At first we are loading the address of the `arr` into the register `SI` and then we increase the value of `SI` so now `SI` points to `arr[1]` and then we have loaded the location of `[SI + 2]` which is in essence `arr[2]` into the register `AL`.
 
 ---
 
 ## 🎯 Important Application
 
-### 📍 Calculating One's and Two's Complement for a Bianry number
+### 📍 Calculating One's and Two's Complement for a Binary Number
 
 ```assembly
 ORG 100H
