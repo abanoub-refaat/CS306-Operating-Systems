@@ -26,6 +26,7 @@ Before starting this tutorial, install the [emu8086](https://emu8086-microproces
   - [📌 Logical Operators (AND, OR, XOR, XCHG and NOT)](#-logical-operators-and-or-xor-xchg-and-not)
   - [📌 Declaring array in Assembly](#-declaring-array-in-assembly)
     - [Direct and Indirect Memory indexing Locations](#direct-and-indirect-memory-indexing-locations)
+  - [📌 LOOPS in Assembly](#-loops-in-assembly)
   - [🎯 Important Application](#-important-application)
     - [📍 Calculating One's and Two's Complement for a Binary Number](#-calculating-ones-and-twos-complement-for-a-binary-number)
 
@@ -293,6 +294,29 @@ arr DB 1, 2, 3, 4  ; Define an array of bytes
 At first we are loading the address of the `arr` into the register `SI` and then we increase the value of `SI` so now `SI` points to `arr[1]` and then we have loaded the location of `[SI + 2]` which is in essence `arr[2]` into the register `AL`.
 
 ---
+
+## 📌 LOOPS in Assembly
+
+we can define loops in assembly using an initial loop name and the `LOOP` instruction and the index of the loop is the `CX` register so whenever we need to specify the number of iteraions the loop will take we use the `CX` insturction as in the following code block:
+
+```assembly
+ORG 100h
+LEA SI, marks
+
+MOV CX, 3 ;set the counter register to 3
+
+lp:   ; the loop name
+    ADD al, [SI]
+    INC SI
+LOOP lp ; iterate over the lp block.
+
+; store the sum
+MOV sum, AL
+
+RET
+marks DB  60, 80, 90
+sum DB ?
+```
 
 ## 🎯 Important Application
 
