@@ -1,5 +1,5 @@
 ; Lab 5 Content:
-; comp
+; cmp
 ; jump in unsigned: ja, jb, je, jne, jc, jnc
 ; jump in signed: jg, jl, je, jne
 ; --------------------------
