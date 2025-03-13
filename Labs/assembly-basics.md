@@ -173,13 +173,9 @@ The `DIV` instruction work in a similar way as the `MUL` instruction, it divides
 
 `DIV BL` will be the same as `AL: DL = AL / BL` and the remainder will be in the `DX` register.
 
-
-
 ### 5️⃣ `INC` and `DEC` Instructions
 
-`INC` and `DEC` are as the names suggest increment/decrement a register value by 1. and they are very useful when computing the One's Complement for a binary value which we can use to get the Two's complement for a binary value.
-
-(for the full implementation see section [[#🎯 Important Application]] .
+`INC` and `DEC` are as the names suggest increment/decrement a register value by 1. and they are very useful when computing the One's Complement for a binary value which we can use to get the Two's complement for a binary value which we will see at the end of this section.
 
 ```assembly
 ORG 100H
@@ -210,6 +206,32 @@ ORG 100H
 RET
 
 ```
+
+### 🔶 Calculating One’s and Two’s Complement for a Binary Number
+
+```assembly
+ORG 100H
+
+MOV AL, 10101111B  ; Load AL with binary number
+MOV BL, AL         ; Store original value in BL
+
+; One’s complement (invert all bits)
+NOT AL
+
+; Two’s complement (one’s complement + 1)
+INC AL
+
+; Alternative way to get two’s complement
+NEG BL             ; NEG does NOT +1, it negates the value
+
+RET
+```
+
+### 🔹 Explanation
+
+1. **One’s Complement** – `NOT AL` inverts all bits of `AL`.
+2. **Two’s Complement** – `INC AL` adds 1 to the one’s complement.
+3. **Alternative Method** – `NEG BL` directly negates the original value in `BL`, achieving the same result as two’s complement.
 
 ---
 
@@ -379,7 +401,7 @@ RET
 arr DB 1, 2, 3, 4   ; Define an array of bytes
 ```
 
-### Explanation
+### 🔹 Explanation
 
 1. **Load Address** – `MOV SI, offset arr` stores the address of `arr` in the `SI` register.
 2. **Increment SI** – `INC SI` increases `SI` by 1, so now `SI` points to `arr[1]` (the second element).
@@ -412,7 +434,7 @@ marks DB 60, 80, 90  ; Define an array of marks
 sum DB ?             ; Variable to store the sum
 ```
 
-### Explanation
+### 🔹 Explanation
 
 1. **Initialize SI** – `LEA SI, marks` loads the address of `marks` into `SI`.
 2. **Set Loop Counter** – `MOV CX, 3` sets the loop to iterate 3 times.
@@ -424,32 +446,152 @@ sum DB ?             ; Variable to store the sum
 
 ---
 
-## 🎯 Important Application
+Here’s an improved version of your section with a clearer explanation, improved grammar, and better formatting:
 
-### 🔶 Calculating One’s and Two’s Complement for a Binary Number
+---
+
+## 📌 Conditional Statements: The `CMP` and `JMP` Instructions
+
+In this section, we will learn about conditional statements in Assembly using the `CMP` instruction, followed by various conditional `JMP` instructions.
+
+### Understanding `CMP` and `JMP`
+
+The `CMP` (Compare) instruction compares two values by subtracting one from the other, **without storing the result**. Instead, it updates the processor's flags, which determine the flow of execution using conditional jump instructions (`JMP`).
+
+In Assembly, numbers can be **unsigned** or **signed**, and each type has its own set of jump instructions to handle conditions correctly.
+
+---
+
+### 1️⃣ **Conditional Jumps for Unsigned Numbers**
+
+For **unsigned numbers**, we have the following conditional jump instructions:
+
+| Instruction            | Meaning                                                                 |
+| ---------------------- | ----------------------------------------------------------------------- |
+| `JA` (Jump Above)      | Jump if the first operand is **greater** than the second.               |
+| `JB` (Jump Below)      | Jump if the first operand is **less** than the second.                  |
+| `JE` (Jump Equal)      | Jump if the values are **equal**.                                       |
+| `JNE` (Jump Not Equal) | Jump if the values are **not equal**.                                   |
+| `JC` (Jump Carry)      | Jump if there was a **carry** (useful for detecting unsigned overflow). |
+| `JNC` (Jump No Carry)  | Jump if there was **no carry**.                                         |
+
+---
+
+### 🔹 Example: Finding the Maximum and Minimum of Two Numbers
 
 ```assembly
-ORG 100H
+ORG 100h
 
-MOV AL, 10101111B  ; Load AL with binary number
-MOV BL, AL         ; Store original value in BL
+LEA SI, arr      ; Load the address of arr into SI
+MOV AL, [SI]     ; Load first element (arr[0]) into AL
+INC SI           ; Move SI to the next element
+MOV BL, [SI]     ; Load second element (arr[1]) into BL
 
-; One’s complement (invert all bits)
-NOT AL
+CMP AL, BL       ; Compare AL with BL
+JA greater       ; If AL > BL, jump to 'greater'
 
-; Two’s complement (one’s complement + 1)
-INC AL
+MOV max, BL      ; Otherwise, store BL as max
+MOV min, AL      ; Store AL as min
+JMP done         ; Skip 'greater' label
 
-; Alternative way to get two’s complement
-NEG BL             ; NEG does NOT +1, it negates the value
+greater:
+    MOV max, AL  ; If AL > BL, store AL as max
+    MOV min, BL  ; Store BL as min
 
+done:
+RET
+
+arr DB 5, 10     ; Define an array with two elements
+max DB ?         ; Variable to store the maximum value
+min DB ?         ; Variable to store the minimum value
+```
+
+### 🔹 Explanation
+
+1. **Load the Numbers**
+
+   - `SI` is initialized to point to `arr`.
+   - The first number (`arr[0] = 5`) is loaded into `AL`.
+   - `SI` is incremented, and the second number (`arr[1] = 10`) is loaded into `BL`.
+
+2. **Compare Values**
+
+   - `CMP AL, BL` subtracts `BL` from `AL` **without storing the result** but sets the flags accordingly.
+   - If `AL > BL`, the `JA greater` instruction jumps to the `greater` label.
+
+3. **Store Max and Min Values**
+   - If `AL` is **not greater** than `BL`, `BL` is the maximum, and `AL` is the minimum.
+   - If `AL > BL`, we jump to `greater` and assign `AL` as the maximum.
+   - The `done` label ensures a clean exit.
+
+### 2️⃣ **Conditional Jumps for signed Numbers**
+
+For **signed numbers**, we have the following conditional jump instructions:
+
+| Instruction            | Meaning                                                                 |
+| ---------------------- | ----------------------------------------------------------------------- |
+| `JG` (Jump Greater)    | Jump if the first operand is **greater** than the second.               |
+| `JL` (Jump Below)      | Jump if the first operand is **less** than the second.                  |
+| `JE` (Jump Equal)      | Jump if the values are **equal**.                                       |
+| `JNE` (Jump Not Equal) | Jump if the values are **not equal**.                                   |
+| `JC` (Jump Carry)      | Jump if there was a **carry** (useful for detecting unsigned overflow). |
+| `JNC` (Jump No Carry)  | Jump if there was **no carry**.                                         |
+
+They work the same way as the unsigned but the difference is in the way bits are treated in the registers so we don't have to give an example for this one it is the same as the last example.
+
+---
+
+## 📌 External Libraries: The `println` Function
+
+In Assembly, printing output to the screen typically requires low-level interactions with system interrupts. However, when using **emu8086**, we can simplify this process by utilizing an **external library** called `emu8086.inc`, which provides convenient functions like `println`.
+
+The `println` function is **not a built-in assembly instruction** but rather a macro provided by `emu8086.inc`. It allows us to print strings easily without handling interrupts manually.
+
+### ✅ **Example: Printing "Hello, World!"**
+
+```assembly
+ORG 100h
+    println 'Hello, World!'
 RET
 ```
 
-### Explanation
+### 🔹 Explanation
 
-1. **One’s Complement** – `NOT AL` inverts all bits of `AL`.
-2. **Two’s Complement** – `INC AL` adds 1 to the one’s complement.
-3. **Alternative Method** – `NEG BL` directly negates the original value in `BL`, achieving the same result as two’s complement.
+1. `ORG 100h` – Defines the starting address of the program (standard for `.COM` programs in **emu8086**).
+2. `println 'Hello, World!'` – Prints the string `"Hello, World!"` to the screen.
+3. `RET` – Returns execution control, signaling the program's end.
+
+> 📝 **Note**:
+>
+> - The `println` function only works in emu8086 and is part of `emu8086.inc`.
+> - If you attempt to run this on a different assembler (e.g., MASM, NASM), you will need to use DOS interrupts like `INT 21H` instead.
 
 ---
+
+## 🎯 Conclusion
+
+Throughout this tutorial, we explored key concepts in **8086 Assembly language**, including:
+
+✅ **Working with Memory Register** (`AX`, `SI` ... etc)  
+✅ **Moving values to registers** (`MOV` instuctin)  
+✅ **Arithmetic Operations** (`ADD`, `DIV` ... etc)  
+✅ **Defining Variables** (`DB`, `DW`, and `EQU`)  
+✅ **Logical and Bitwise Operations** (`AND`, `OR`, `XOR`, `XCHG`, `NOT`)  
+✅ **Memory Access Methods** (Direct and Indirect Addressing)  
+✅ **Loops and Conditional Jumps** (`LOOP`, `CMP`, `JMP`)  
+✅ **Working with External Libraries** (`println` in emu8086)
+
+By applying these techniques, you can create more complex Assembly programs that interact with memory, perform computations, and even print output. Assembly is a **powerful and low-level language**, and mastering it helps build a deep understanding of how computers work at the hardware level.
+
+🚀 **Next Steps**: To further strengthen your Assembly skills, try writing programs that:
+
+- **Perform arithmetic calculations** (addition, subtraction, multiplication, and division).
+- **Manipulate strings and arrays** (reversing, sorting, or searching).
+- **Interact with system interrupts** for input/output operations.
+
+🔗 **Recommended Learning Resources**:
+
+- [emu8086 Documentation](http://www.emu8086.com/)
+- [x86 Assembly Language Guide](https://cs.brown.edu/courses/cs033/docs/guides/x86-assembly.pdf)
+
+Keep coding, and enjoy your journey into low-level programming! 🔥
