@@ -1,0 +1,10 @@
+ORG 100H 
+ ; Indirect Addressing
+ MOV SI, OFFSET VAR
+ MOV DI, OFFSET COPY
+
+ MOV AX, [SI]
+ MOV [DI], AX
+RET
+VAR DW 1020H
+COPY DW ?
