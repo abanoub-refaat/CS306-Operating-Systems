@@ -19,6 +19,6 @@ In this guide, you'll learn:
 - ✅ Where you can install the **emu8086** emulator
 - ✅ How registers work in assembly
 - ✅ The basic Arithmetic instructions (ADD, SUB, MUL, and DIV)
-- ✅ Defining variables in assembly
-
-More topics will be added as the course progresses! 🚀
+- ✅ Defining variables in assembly and arrays
+- ✅ Conditions in Assembly
+- ✅ External Libraries
