@@ -26,5 +26,7 @@ int main()
         printf("Error\n");
         return 1;
     }
+
+    pthread_join(thread, NULL);
     return 0;
 }
