@@ -2,8 +2,6 @@
 
 Welcome to the repository for **CS306: Operating Systems Lab**. This repo includes notes, exercises, and project files related to process management, memory allocation, concurrency, and system calls.
 
----
-
 ## 📚 Table of Contents
 
 - [CS306: Operating Systems – Labs, Exercises, and Projects](#cs306-operating-systems--labs-exercises-and-projects)
@@ -14,8 +12,6 @@ Welcome to the repository for **CS306: Operating Systems Lab**. This repo includ
   - [🦾 Assembly Programming Resources](#-assembly-programming-resources)
   - [🖁️ Multithreading in C](#️-multithreading-in-c)
 
----
-
 ## 📘 Overview
 
 This repository is organized into separate folders and markdown files covering key topics in operating systems. You'll find:
@@ -24,16 +20,12 @@ This repository is organized into separate folders and markdown files covering k
 - Hands-on examples for **Multithreading in C**
 - Practical guidance on **mutexes, semaphores**, and more
 
----
-
 ## 🧠 Topics Covered
 
 - 🏁 Introduction to Assembly language
 - 🛠️ Assembly exercises and tutorials
 - 🔀 Multithreading in C
 - 🔐 Concurrency and synchronization (mutexes, semaphores)
-
----
 
 ## 🛠️ How to Use
 
@@ -56,8 +48,6 @@ This repository is organized into separate folders and markdown files covering k
    ./example
    ```
 
----
-
 ## 🦾 Assembly Programming Resources
 
 Explore these markdown guides to get started with assembly:
@@ -75,8 +65,6 @@ Topics you’ll learn:
 - ✅ Defining variables and arrays
 - ✅ Conditional logic
 - ✅ Using external libraries
-
----
 
 ## 🖁️ Multithreading in C
 
