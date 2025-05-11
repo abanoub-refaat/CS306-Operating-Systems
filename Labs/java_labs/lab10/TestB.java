@@ -1,4 +1,4 @@
-package labs.java_labs;
+package labs.java_labs.lab10;
 
 public class TestB implements Runnable {
     public static void main(String[] args) {

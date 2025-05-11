@@ -1,4 +1,4 @@
-package labs.java_labs;
+package labs.java_labs.lab10;
 
 /*
  * This code will throw stackoverflow exception since it will call the
